@@ -572,7 +572,7 @@
   $.fn.tagsinput = function(arg1, arg2, arg3) {
     var results = [];
 
-    this.each(function() {
+    return this.each(function() {
       var tagsinput = $(this).data('tagsinput');
       // Initialize a new tags input
       if (!tagsinput) {
