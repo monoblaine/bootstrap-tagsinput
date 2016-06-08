@@ -386,8 +386,7 @@
       // abt.typeahead
       if (self.options.abttypeahead === true) {
           self.$input.abttypeahead($.extend(true, { typeAhead : { hint : false } }, self.$element.data(), self.options.abtTtCfg)).on('typeahead:selected', function (e, datum) {
-            self.add(datum.value);
-            self.$input.typeahead('val', '');
+            self.add(self.options.freeInput ? datum.value : datum);
           });
       }
 
