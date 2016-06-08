@@ -1,6 +1,15 @@
 (function ($) {
   "use strict";
 
+  function addGlowEvents () {
+      var me = this,
+          $container = me.$container,
+          addGlow = function () { $container.addClass("focus"); },
+          removeGlow = function () { $container.removeClass("focus"); };
+
+      me.$input.focus(addGlow).blur(removeGlow);
+  }
+
   var defaultOptions = {
     tagClass: function(item) {
       return 'label label-info';
@@ -49,6 +58,8 @@
 
     this.$container = $('<div class="bootstrap-tagsinput"></div>');
     this.$input = $('<input type="text" placeholder="' + this.placeholderText + '"/>').appendTo(this.$container);
+
+    addGlowEvents.call(this);
 
     this.$element.before(this.$container);
 
