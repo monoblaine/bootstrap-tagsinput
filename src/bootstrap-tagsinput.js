@@ -605,13 +605,6 @@
               results.push(retVal);
       }
     });
-
-    if ( typeof arg1 == 'string') {
-      // Return the results from the invoked function calls
-      return results.length > 1 ? results : results[0];
-    } else {
-      return results;
-    }
   };
 
   $.fn.tagsinput.Constructor = TagsInput;
