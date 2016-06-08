@@ -380,7 +380,7 @@
 
       // abt.typeahead
       if (self.options.abttypeahead === true) {
-          self.$input.abttypeahead(self.$element.data()).on('typeahead:selected', function (e, datum) {
+          self.$input.abttypeahead($.extend(true, { typeAhead : { hint : false } }, self.$element.data())).on('typeahead:selected', function (e, datum) {
             self.add(datum.value);
             self.$input.typeahead('val', '');
           });
