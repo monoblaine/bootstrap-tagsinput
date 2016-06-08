@@ -378,6 +378,14 @@
           }, self));
       }
 
+      // abt.typeahead
+      if (self.options.abttypeahead === true) {
+          self.$input.abttypeahead(self.$element.data()).on('typeahead:selected', function (e, datum) {
+            self.add(datum.value);
+            self.$input.typeahead('val', '');
+          });
+      }
+
       self.$container.on('click', $.proxy(function(event) {
         if (! self.$element.attr('disabled')) {
           self.$input.removeAttr('disabled');
