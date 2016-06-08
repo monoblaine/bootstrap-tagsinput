@@ -191,6 +191,10 @@
      * elements val()
      */
     remove: function(item, dontPushVal, options) {
+      if (item === undefined) {
+        return;
+      }
+
       var self = this;
 
       if (self.objectItems) {
