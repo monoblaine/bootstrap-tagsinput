@@ -60,6 +60,7 @@
     this.$input = $('<input type="text" placeholder="' + this.placeholderText + '"/>').appendTo(this.$container);
 
     addGlowEvents.call(this);
+    this.stringsAsTags = this.$element.data("strings-as-tags") === true;
 
     this.$element.before(this.$container);
 
