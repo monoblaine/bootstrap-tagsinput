@@ -491,7 +491,7 @@
             }
 
             // If the field is empty, let the event triggered fire as usual
-            if (self.options.cancelConfirmKeysOnEmpty === false) {
+            if (text.length !== 0 && self.options.cancelConfirmKeysOnEmpty === false) {
                 event.preventDefault();
             }
          }
