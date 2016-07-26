@@ -383,7 +383,10 @@
         if (! self.$element.attr('disabled')) {
           self.$input.removeAttr('disabled');
         }
-        self.$input.focus();
+        setTimeout(function(){
+          self.$input.focus();
+        }, 1);
+
       }, self));
 
         if (self.options.addOnBlur && self.options.freeInput) {
@@ -443,7 +446,9 @@
             var $prevTag = $inputWrapper.prev();
             if ($input.val().length === 0 && $prevTag[0]) {
               $prevTag.before($inputWrapper);
-              $input.focus();
+              setTimeout(function(){
+                $input.focus();
+              }, 1);
             }
             break;
           // RIGHT ARROW
@@ -452,7 +457,9 @@
             var $nextTag = $inputWrapper.next();
             if ($input.val().length === 0 && $nextTag[0]) {
               $nextTag.after($inputWrapper);
-              $input.focus();
+              setTimeout(function(){
+                $input.focus();
+              }, 1);
             }
             break;
          default:
@@ -466,7 +473,7 @@
         $input.attr('size', Math.max(this.inputSize, $input.val().length));
       }, self));
 
-      self.$container.on('keypress', 'input', $.proxy(function(event) {
+      self.$container.on('keydown', 'input', $.proxy(function(event) {
          var $input = $(event.target);
 
          if (self.$element.attr('disabled')) {
@@ -535,7 +542,9 @@
      * Sets focus on the tagsinput
      */
     focus: function() {
-      this.$input.focus();
+      setTimeout(function(){
+        this.$input.focus();
+      }.bind(this), 1);
     },
 
     /**
