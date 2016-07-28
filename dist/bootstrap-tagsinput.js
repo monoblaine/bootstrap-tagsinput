@@ -50,7 +50,7 @@
     this.isSelect = (element.tagName === 'SELECT');
     this.multiple = (this.isSelect && element.hasAttribute('multiple'));
     this.objectItems = options && options.itemValue;
-    this.placeholderText = element.hasAttribute('placeholder') ? this.$element.attr('placeholder') : '';
+    this.placeholderText = (options && options.placeholder) || (element.hasAttribute('placeholder') ? this.$element.attr('placeholder') : '');
     this.inputSize = Math.max(1, this.placeholderText.length);
 
     this.$container = $('<div class="bootstrap-tagsinput"></div>');
@@ -141,8 +141,8 @@
       self.itemsArray.push(item);
 
       // add a tag element
-
-      var $tag = $('<span class="tag ' + htmlEncode(tagClass) + (itemTitle !== null ? ('" title="' + itemTitle) : '') + '">' + htmlEncode(itemText) + '<span data-role="remove"></span></span>');
+      var removeEl = self.options.disabled ? '' : '<span data-role="remove"></span>';
+      var $tag = $('<span class="tag ' + htmlEncode(tagClass) + (itemTitle !== null ? ('" title="' + itemTitle) : '') + '">' + htmlEncode(itemText) + removeEl + '</span>');
       $tag.data('item', item);
       self.findInputWrapper().before($tag);
       $tag.after(' ');
@@ -178,6 +178,7 @@
       } else {
         self.$element.trigger($.Event('itemAdded', { item: item, options: options }));
       }
+      self.$input.removeAttr('placeholder');
     },
 
     /**
@@ -219,6 +220,9 @@
       if (self.options.maxTags > self.itemsArray.length)
         self.$container.removeClass('bootstrap-tagsinput-max');
 
+      if(!self.itemsArray.length){
+        self.$input.attr('placeholder', self.placeholderText);
+      }
       self.$element.trigger($.Event('itemRemoved',  { item: item, options: options }));
     },
 
@@ -234,6 +238,7 @@
       while(self.itemsArray.length > 0)
         self.itemsArray.pop();
 
+      self.$input.attr('placeholder', self.placeholderText);
       self.pushVal(self.options.triggerChange);
     },
 
@@ -301,6 +306,11 @@
       makeOptionItemFunction(self.options, 'itemValue');
       makeOptionItemFunction(self.options, 'itemText');
       makeOptionFunction(self.options, 'tagClass');
+
+      if(self.options.disabled){
+        self.$container.addClass('disabled');
+        self.$input.attr('disabled', 'disabled');
+      }
 
       // Typeahead Bootstrap version 2.3.2
       if (self.options.typeahead) {
@@ -385,10 +395,13 @@
       }
 
       self.$container.on('click', $.proxy(function(event) {
-        if (! self.$element.attr('disabled')) {
+        if (! self.options.disabled) {
           self.$input.removeAttr('disabled');
         }
-        self.$input.focus();
+        setTimeout(function(){
+          self.$input.focus();
+        }, 1);
+
       }, self));
 
         if (self.options.addOnBlur && self.options.freeInput) {
@@ -416,7 +429,7 @@
         var $input = $(event.target),
             $inputWrapper = self.findInputWrapper();
 
-        if (self.$element.attr('disabled')) {
+        if (self.options.disabled) {
           self.$input.attr('disabled', 'disabled');
           return;
         }
@@ -448,7 +461,9 @@
             var $prevTag = $inputWrapper.prev();
             if ($input.val().length === 0 && $prevTag[0]) {
               $prevTag.before($inputWrapper);
-              $input.focus();
+              setTimeout(function(){
+                $input.focus();
+              }, 1);
             }
             break;
           // RIGHT ARROW
@@ -457,7 +472,9 @@
             var $nextTag = $inputWrapper.next();
             if ($input.val().length === 0 && $nextTag[0]) {
               $nextTag.after($inputWrapper);
-              $input.focus();
+              setTimeout(function(){
+                $input.focus();
+              }, 1);
             }
             break;
          default:
@@ -468,13 +485,13 @@
         var textLength = $input.val().length,
             wordSpace = Math.ceil(textLength / 5),
             size = textLength + wordSpace + 1;
-        $input.attr('size', Math.max(this.inputSize, $input.val().length));
+        $input.attr('size', Math.max(this.inputSize, size));
       }, self));
 
-      self.$container.on('keypress', 'input', $.proxy(function(event) {
+      self.$container.on('keydown', 'input', $.proxy(function(event) {
          var $input = $(event.target);
 
-         if (self.$element.attr('disabled')) {
+         if (self.options.disabled) {
             self.$input.attr('disabled', 'disabled');
             return;
          }
@@ -489,7 +506,7 @@
             }
 
             // If the field is empty, let the event triggered fire as usual
-            if (self.options.cancelConfirmKeysOnEmpty === false) {
+            if (text.length !== 0 && self.options.cancelConfirmKeysOnEmpty === false) {
                 event.preventDefault();
             }
          }
@@ -498,12 +515,12 @@
          var textLength = $input.val().length,
             wordSpace = Math.ceil(textLength / 5),
             size = textLength + wordSpace + 1;
-         $input.attr('size', Math.max(this.inputSize, $input.val().length));
+         $input.attr('size', Math.max(this.inputSize, size));
       }, self));
 
       // Remove icon clicked
       self.$container.on('click', '[data-role=remove]', $.proxy(function(event) {
-        if (self.$element.attr('disabled')) {
+        if (self.options.disabled) {
           return;
         }
         self.remove($(event.target).closest('.tag').data('item'));
@@ -540,7 +557,9 @@
      * Sets focus on the tagsinput
      */
     focus: function() {
-      this.$input.focus();
+      setTimeout(function(){
+        this.$input.focus();
+      }.bind(this), 1);
     },
 
     /**
