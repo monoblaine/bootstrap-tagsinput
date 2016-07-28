@@ -136,8 +136,8 @@
       self.itemsArray.push(item);
 
       // add a tag element
-
-      var $tag = $('<span class="tag ' + htmlEncode(tagClass) + (itemTitle !== null ? ('" title="' + itemTitle) : '') + '">' + htmlEncode(itemText) + '<span data-role="remove"></span></span>');
+      var removeEl = self.options.disabled ? '' : '<span data-role="remove"></span>';
+      var $tag = $('<span class="tag ' + htmlEncode(tagClass) + (itemTitle !== null ? ('" title="' + itemTitle) : '') + '">' + htmlEncode(itemText) + removeEl + '</span>');
       $tag.data('item', item);
       self.findInputWrapper().before($tag);
       $tag.after(' ');
@@ -297,6 +297,11 @@
       makeOptionItemFunction(self.options, 'itemText');
       makeOptionFunction(self.options, 'tagClass');
 
+      if(self.options.disabled){
+        self.$container.addClass('disabled');
+        self.$input.attr('disabled', 'disabled');
+      }
+
       // Typeahead Bootstrap version 2.3.2
       if (self.options.typeahead) {
         var typeahead = self.options.typeahead || {};
@@ -380,7 +385,7 @@
       }
 
       self.$container.on('click', $.proxy(function(event) {
-        if (! self.$element.attr('disabled')) {
+        if (! self.options.disabled) {
           self.$input.removeAttr('disabled');
         }
         setTimeout(function(){
@@ -414,7 +419,7 @@
         var $input = $(event.target),
             $inputWrapper = self.findInputWrapper();
 
-        if (self.$element.attr('disabled')) {
+        if (self.options.disabled) {
           self.$input.attr('disabled', 'disabled');
           return;
         }
@@ -476,7 +481,7 @@
       self.$container.on('keydown', 'input', $.proxy(function(event) {
          var $input = $(event.target);
 
-         if (self.$element.attr('disabled')) {
+         if (self.options.disabled) {
             self.$input.attr('disabled', 'disabled');
             return;
          }
@@ -505,7 +510,7 @@
 
       // Remove icon clicked
       self.$container.on('click', '[data-role=remove]', $.proxy(function(event) {
-        if (self.$element.attr('disabled')) {
+        if (self.options.disabled) {
           return;
         }
         self.remove($(event.target).closest('.tag').data('item'));
