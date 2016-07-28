@@ -39,7 +39,7 @@
     "grunt-jquerymanifest": "~0.1",
     "grunt-karma": "~2.0",
     "grunt-zip": "^0.17",
-    "jasmine": "~2",
+    "jasmine": "^2",
     "karma": "^1.2",
     "karma-jasmine": "^1.0",
     "karma-phantomjs-launcher": "~1",
