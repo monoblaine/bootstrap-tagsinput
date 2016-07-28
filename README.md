@@ -1,5 +1,5 @@
 # Bootstrap Tags Input 
-[![GitHub version](https://badge.fury.io/gh/efureev%2Fbootstrap-tagsinput.svg)](https://badge.fury.io/gh/efureev%2Fbootstrap-tagsinput) [![Build Status](https://travis-ci.org/efureev/bootstrap-tagsinput.svg?branch=master)](https://travis-ci.org/efureev/bootstrap-tagsinput) [![Dependency Status](https://gemnasium.com/badges/github.com/efureev/bootstrap-tagsinput.svg)](https://gemnasium.com/github.com/efureev/bootstrap-tagsinput) ![](https://reposs.herokuapp.com/?path=efureev/bootstrap-tagsinput)
+[![GitHub version](https://badge.fury.io/gh/efureev%2Fbootstrap-tagsinput.svg)](https://badge.fury.io/gh/efureev%2Fbootstrap-tagsinput) [![Build Status](https://travis-ci.org/efureev/bootstrap-tagsinput.svg?branch=master)](https://travis-ci.org/efureev/bootstrap-tagsinput) [![Dependency Status](https://gemnasium.com/badges/github.com/efureev/bootstrap-tagsinput.svg)](https://gemnasium.com/github.com/efureev/bootstrap-tagsinput) ![](https://reposs.herokuapp.com/?path=efureev/bootstrap-tagsinput) [![Code Climate](https://codeclimate.com/github/efureev/bootstrap-tagsinput/badges/gpa.svg)](https://codeclimate.com/github/efureev/bootstrap-tagsinput)
 
 Bootstrap Tags Input is a jQuery plugin providing a Twitter Bootstrap user interface for managing tags.
 
