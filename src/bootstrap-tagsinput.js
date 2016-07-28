@@ -173,6 +173,7 @@
       } else {
         self.$element.trigger($.Event('itemAdded', { item: item, options: options }));
       }
+      self.$input.removeAttr('placeholder');
     },
 
     /**
@@ -214,6 +215,9 @@
       if (self.options.maxTags > self.itemsArray.length)
         self.$container.removeClass('bootstrap-tagsinput-max');
 
+      if(!self.itemsArray.length){
+        self.$input.attr('placeholder', self.placeholderText);
+      }
       self.$element.trigger($.Event('itemRemoved',  { item: item, options: options }));
     },
 
@@ -229,6 +233,7 @@
       while(self.itemsArray.length > 0)
         self.itemsArray.pop();
 
+      self.$input.attr('placeholder', self.placeholderText);
       self.pushVal(self.options.triggerChange);
     },
 
