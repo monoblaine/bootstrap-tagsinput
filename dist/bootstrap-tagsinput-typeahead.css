@@ -1,5 +1,5 @@
 /*
- * bootstrap-tagsinput v0.8.0
+ * bootstrap-tagsinput v0.8.2
  * 
  */
 
@@ -8,8 +8,7 @@
     margin-bottom: 0;
 }
 
-.twitter-typeahead .tt-hint
-{
+.twitter-typeahead .tt-hint {
     display: none;
 }
 
