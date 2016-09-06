@@ -1,5 +1,5 @@
 /*
- * bootstrap-tagsinput v0.8.0-m2
+ * bootstrap-tagsinput v0.8.1
  * 
  */
 
@@ -380,7 +380,7 @@
       // abt.typeahead
       if (self.options.abttypeahead === true) {
           self.$input.abttypeahead($.extend(true, { typeAhead : { hint : false } }, self.$element.data(), self.options.abtTtCfg)).on('typeahead:selected', function (e, datum) {
-            self.add(self.options.freeInput ? datum.value : datum);
+            self.add(datum.value);
           });
       }
 
