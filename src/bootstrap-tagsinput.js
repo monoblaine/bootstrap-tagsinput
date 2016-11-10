@@ -44,6 +44,11 @@
 
     this.isSelect = (element.tagName === 'SELECT');
     this.multiple = (this.isSelect && element.hasAttribute('multiple'));
+
+    if (options.freeInput === false && typeof options.itemValue !== 'function') {
+      options.itemValue = defaultOptions.itemValue;
+    }
+
     this.objectItems = options && options.itemValue;
     this.placeholderText = element.hasAttribute('placeholder') ? this.$element.attr('placeholder') : '';
     this.inputSize = Math.max(1, this.placeholderText.length);
